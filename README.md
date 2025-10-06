@@ -111,16 +111,25 @@ git commit -m "Initial world-building system setup"
 ### Quick Start
 
 ```bash
-# Validate all entities
+# Validate all entities against schemas
 npm run validate
 
-# Generate visual dependency graphs
-npm run generate-graphs
+# Check for logical contradictions
+npm run check-consistency
 
-# Analyze progress from git commits
+# Migrate content from markdown to JSON
+npm run migrate
+
+# Analyze progress (git-based metrics)
 npm run analyze-progress
 
-# Serve local wiki (view entities in browser)
+# Check asset status and priorities
+npm run check-assets
+
+# Generate visual dependency graphs (coming soon)
+npm run generate-graphs
+
+# Serve local wiki (coming soon)
 npm run serve-wiki
 ```
 
@@ -317,6 +326,168 @@ VALIDATION SUMMARY
 Entities: 15/15 valid
 
 ✓ VALIDATION PASSED
+```
+
+---
+
+## 🔍 Consistency Checking
+
+### Prevent Logical Contradictions
+
+```bash
+npm run check-consistency
+```
+
+The consistency checker **prevents logical fallacies** by detecting:
+
+- ❌ **Property conflicts**: Same entity described differently
+  - Example: Hinoki marked as "premium" in one place, "cheap" in another
+- ❌ **Relationship conflicts**: Mismatched bidirectional links
+  - Example: A says it "uses" B, but B doesn't list A
+- ❌ **Definition conflicts**: Same term defined as multiple entity types
+  - Example: "Temple" as both location and profession
+- ❌ **Cross-reference contradictions**: JSON contradicts source markdown
+  - Example: Entity says "durable" but markdown says "fragile"
+- ❌ **Orphaned references**: Links to non-existent entities
+
+### Example Output
+
+```
+Consistency Check Report
+============================================================
+
+Total Issues: 3
+  Critical: 1 (definition conflicts)
+  High: 2 (cross-reference contradictions)
+  Medium: 0
+  Low: 0
+
+❌ DEFINITION CONFLICTS (Critical):
+  - "Temple" is defined as multiple entity types: location, profession
+    Entities: location_healer-temple, profession_temple-keeper
+
+❌ SOURCE CONTRADICTIONS (High):
+  - material_wood_hinoki marked as "premium" but source describes it as cheap
+    Source: originals/whisker-shogunate-part2.md:245
+
+============================================================
+```
+
+**Output**: `generated/reports/consistency-report.json`
+
+---
+
+## 📦 Content Migration
+
+### Convert Markdown → JSON Entities
+
+```bash
+npm run migrate
+```
+
+Automatically extracts entities from markdown sources:
+
+**Sources**:
+- `originals/*.md` (4,030 lines of core lore)
+- `originals/GLOSSARY.md` (552 canonical terms)
+
+**Extracts**:
+- ✅ Materials (woods, metals, stones, ceramics, fabrics)
+- ✅ Locations (provinces, cities, buildings, landmarks)
+- ✅ Professions (from glossary tags)
+- ✅ Characters (NPCs, historical figures)
+- ✅ Factions (guilds, political entities)
+- ✅ Technologies (Whisker-Punk systems)
+
+**Features**:
+- Auto-generates entity IDs from names
+- Creates proper directory structure
+- Extracts properties from descriptions
+- Flags incomplete data for manual review
+- Generates migration report
+
+### Example Output
+
+```
+Whisker Shogunate - Markdown to JSON Migration
+
+Parsing GLOSSARY.md...
+  Found 212 glossary terms
+
+Parsing materials from originals/whisker-shogunate-part2.md...
+  Extracted 3 materials
+
+Extracting professions from glossary...
+  Extracted 26 professions
+
+============================================================
+Creating JSON entities...
+============================================================
+✓ Created material_metal_brass
+✓ Created material_metal_bronze
+✓ Created material_metal_copper
+✓ Created profession_daiku
+✓ Created profession_itamae
+... and 18 more
+
+============================================================
+MIGRATION SUMMARY
+============================================================
+Materials created: 3
+Professions created: 20
+Errors: 0
+
+✓ Migration complete!
+```
+
+---
+
+## 🎨 Asset Management
+
+### Check Asset Status
+
+```bash
+npm run check-assets
+```
+
+Scans entities for visual asset references:
+
+**Reports**:
+- 📊 Total assets vs. existing vs. missing
+- 📁 Entity coverage (which entities have assets)
+- 🎨 Assets by type (primary, gallery, diagrams, concept art)
+- 🎯 Priority list (which entities need assets most)
+
+### Example Output
+
+```
+Asset Check Report
+============================================================
+
+📊 OVERALL ASSET STATISTICS
+Total assets referenced: 45
+Existing assets: 12 (27%)
+Missing assets: 33 (73%)
+
+📁 ENTITY COVERAGE
+Entities with assets: 8
+Entities without assets: 16
+Total entities: 24
+
+🎨 ASSETS BY TYPE
+  gallery: 4/15 (27% complete)
+  diagrams: 3/10 (30% complete)
+  primary: 5/8 (63% complete)
+  conceptArt: 0/12 (0% complete)
+
+🎯 TOP PRIORITY ASSETS TO CREATE
+(Based on entity completion % and number of missing assets)
+
+  1. Hinoki (85% complete, 7 missing assets)
+  2. Brass (60% complete, 5 missing assets)
+  3. Healer Temple (75% complete, 4 missing assets)
+
+============================================================
 ```
 
 ---
