@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-10-06T22:26:05.036Z",
+  "timestamp": "2025-10-06T22:45:34.913Z",
   "summary": {
-    "totalEntities": 1,
-    "validEntities": 1,
+    "totalEntities": 24,
+    "validEntities": 24,
     "invalidEntities": 0,
     "totalErrors": 0,
     "totalWarnings": 0,
@@ -12,8 +12,8 @@
     "orphanedEntities": 0
   },
   "details": {
-    "totalEntities": 1,
-    "validEntities": 1,
+    "totalEntities": 24,
+    "validEntities": 24,
     "invalidEntities": 0,
     "errors": [],
     "warnings": [],
