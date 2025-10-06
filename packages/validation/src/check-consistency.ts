@@ -18,9 +18,17 @@ import { glob } from 'glob';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const ROOT_DIR = join(__dirname, '..');
+const ROOT_DIR = join(__dirname, '../../..');
 
-const issues = {
+const issues: {
+  propertyConflicts: any[];
+  relationshipConflicts: any[];
+  definitionConflicts: any[];
+  crossReferenceConflicts: any[];
+  orphanedReferences: any[];
+  missingBidirectional: any[];
+  severityCount: { critical: number; high: number; medium: number; low: number };
+} = {
   propertyConflicts: [],
   relationshipConflicts: [],
   definitionConflicts: [],

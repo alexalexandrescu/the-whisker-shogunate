@@ -17,23 +17,20 @@ import { fileURLToPath } from 'url';
 import { glob } from 'glob';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
+import { schemas } from '@whisker/schemas';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const ROOT_DIR = join(__dirname, '..');
+const ROOT_DIR = join(__dirname, '../../..');
 
 // Initialize validator
 const ajv = new Ajv({ allErrors: true });
 addFormats(ajv);
 
-// Load schemas
-const schemas = {};
-const schemaFiles = ['material.schema.json', 'location.schema.json', 'character.schema.json', 'relationship.schema.json'];
-
-for (const schemaFile of schemaFiles) {
-  const schemaPath = join(ROOT_DIR, 'schemas', schemaFile);
-  const schema = JSON.parse(readFileSync(schemaPath, 'utf8'));
-  schemas[schema.title.toLowerCase()] = schema;
+// Load schemas from package
+const schemasByType: Record<string, any> = {};
+for (const [type, schema] of Object.entries(schemas)) {
+  schemasByType[type] = schema;
   ajv.addSchema(schema, schema.$id);
 }
 
@@ -84,7 +81,7 @@ async function loadRelationshipGraph() {
  */
 export async function searchEntities({ query, type, tags, limit = 50 }) {
   const entities = await loadAllEntities();
-  let results = Array.from(entities.values());
+  let results: any[] = Array.from(entities.values());
 
   // Filter by type
   if (type) {
@@ -225,30 +222,33 @@ export async function getDependencyTree({ entityId, maxDepth = 5 }) {
 /**
  * MCP Tool: Create new entity
  */
-export async function createEntity({ type, data }) {
-  const schema = schemas[type];
+export async function createEntity(params: any) {
+  const type = params.type;
+  const dataTyped: any = params.data;
+  const schema = schemasByType[type];
   if (!schema) {
     throw new Error(`Unknown entity type: ${type}`);
   }
 
   // Validate against schema
-  const valid = ajv.validate(schema.$id, data);
+  const valid = ajv.validate(schema.$id, dataTyped);
   if (!valid) {
     throw new Error(`Validation failed: ${JSON.stringify(ajv.errors, null, 2)}`);
   }
 
   // Determine file path based on type and category
   let filePath;
+  const d: any = dataTyped;
   if (type === 'material') {
-    const category = data.category || 'other';
-    filePath = join(ROOT_DIR, 'data', 'materials', `${category}s`, `${data.id.replace('material_', '').replace(/_/g, '-')}.json`);
+    const category = d.category || 'other';
+    filePath = join(ROOT_DIR, 'data', 'materials', `${category}s`, `${d.id.replace('material_', '').replace(/_/g, '-')}.json`);
   } else if (type === 'location') {
-    const locationType = data.locationType || 'other';
-    filePath = join(ROOT_DIR, 'data', 'locations', `${locationType}s`, `${data.id.replace('location_', '').replace(/_/g, '-')}.json`);
+    const locationType = d.locationType || 'other';
+    filePath = join(ROOT_DIR, 'data', 'locations', `${locationType}s`, `${d.id.replace('location_', '').replace(/_/g, '-')}.json`);
   } else if (type === 'character') {
-    filePath = join(ROOT_DIR, 'data', 'characters', `${data.id.replace('character_', '').replace(/_/g, '-')}.json`);
+    filePath = join(ROOT_DIR, 'data', 'characters', `${d.id.replace('character_', '').replace(/_/g, '-')}.json`);
   } else {
-    filePath = join(ROOT_DIR, 'data', type + 's', `${data.id.replace(type + '_', '').replace(/_/g, '-')}.json`);
+    filePath = join(ROOT_DIR, 'data', type + 's', `${d.id.replace(type + '_', '').replace(/_/g, '-')}.json`);
   }
 
   // Ensure directory exists
@@ -263,14 +263,14 @@ export async function createEntity({ type, data }) {
   }
 
   // Write entity
-  writeFileSync(filePath, JSON.stringify(data, null, 2));
+  writeFileSync(filePath, JSON.stringify(dataTyped, null, 2));
 
   // Invalidate cache
   entitiesCache = null;
 
   return {
     success: true,
-    entityId: data.id,
+    entityId: d.id,
     filePath: filePath.replace(ROOT_DIR + '/', '')
   };
 }

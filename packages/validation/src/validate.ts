@@ -11,35 +11,45 @@
 
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
-import { readFileSync, readdirSync, statSync, existsSync } from 'fs';
+import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { glob } from 'glob';
+import { schemas } from '@whisker/schemas';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const ROOT_DIR = join(__dirname, '..');
+const ROOT_DIR = join(__dirname, '../../..');
 
 // Initialize AJV validator
 const ajv = new Ajv({ allErrors: true, verbose: true });
 addFormats(ajv);
 
-// Load all schemas
-const schemas = {};
-const schemaDir = join(ROOT_DIR, 'schemas');
-const schemaFiles = readdirSync(schemaDir).filter(f => f.endsWith('.schema.json'));
-
+// Load all schemas from @whisker/schemas package
 console.log('Loading schemas...');
-for (const schemaFile of schemaFiles) {
-  const schemaPath = join(schemaDir, schemaFile);
-  const schema = JSON.parse(readFileSync(schemaPath, 'utf8'));
-  schemas[schema.title.toLowerCase()] = schema;
+for (const [type, schema] of Object.entries(schemas)) {
   ajv.addSchema(schema, schema.$id);
   console.log(`  ✓ Loaded ${schema.title} schema`);
 }
 
+// Create schema lookup by type name
+const schemasByType: Record<string, any> = {};
+for (const [type, schema] of Object.entries(schemas)) {
+  schemasByType[type] = schema;
+}
+
 // Validation results
-const results = {
+const results: {
+  totalEntities: number;
+  validEntities: number;
+  invalidEntities: number;
+  errors: any[];
+  warnings: any[];
+  relationshipIssues: any[];
+  missingAssets: any[];
+  circularDependencies: any[];
+  orphanedEntities: any[];
+} = {
   totalEntities: 0,
   validEntities: 0,
   invalidEntities: 0,
@@ -89,7 +99,7 @@ async function validateEntities() {
       continue;
     }
 
-    const schema = schemas[entityType];
+    const schema = schemasByType[entityType];
     if (!schema) {
       results.invalidEntities++;
       results.errors.push({
@@ -251,7 +261,7 @@ async function detectCircularDependencies() {
   const relationships = graph.relationships || [];
 
   // Build adjacency list for dependency relationships
-  const adjList = {};
+  const adjList: Record<string, string[]> = {};
   const dependencyTypes = ['requires', 'dependsOn', 'precedes'];
 
   for (const rel of relationships) {
@@ -393,16 +403,12 @@ function generateReport() {
   // Ensure directory exists
   const reportDir = dirname(reportPath);
   if (!existsSync(reportDir)) {
-    import('fs').then(fs => {
-      fs.mkdirSync(reportDir, { recursive: true });
-    });
+    mkdirSync(reportDir, { recursive: true });
   }
 
   // Write report
-  import('fs').then(fs => {
-    fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
-    console.log(`  ✓ Report saved to ${reportPath}`);
-  });
+  writeFileSync(reportPath, JSON.stringify(report, null, 2));
+  console.log(`  ✓ Report saved to ${reportPath}`);
 
   return report;
 }

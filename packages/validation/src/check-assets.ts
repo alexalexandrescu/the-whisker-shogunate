@@ -16,7 +16,7 @@ import { glob } from 'glob';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const ROOT_DIR = join(__dirname, '..');
+const ROOT_DIR = join(__dirname, '../../..');
 
 /**
  * Load all entities
@@ -45,7 +45,7 @@ async function loadAllEntities() {
  * Check assets for all entities
  */
 function checkAssets(entities) {
-  const assetReport = {
+  const assetReport: any = {
     totalAssets: 0,
     existingAssets: 0,
     missingAssets: 0,
@@ -158,9 +158,10 @@ function generateReport(report, totalEntities) {
   console.log(`Total entities: ${totalEntities}`);
 
   console.log(`\n🎨 ASSETS BY TYPE`);
-  for (const [type, stats] of Object.entries(report.assetsByType).sort((a, b) => b[1].total - a[1].total)) {
-    const percent = ((stats.existing / stats.total) * 100).toFixed(0);
-    console.log(`  ${type}: ${stats.existing}/${stats.total} (${percent}% complete)`);
+  for (const [type, stats] of Object.entries(report.assetsByType).sort((a: any, b: any) => b[1].total - a[1].total)) {
+    const statsTyped = stats as any;
+    const percent = ((statsTyped.existing / statsTyped.total) * 100).toFixed(0);
+    console.log(`  ${type}: ${statsTyped.existing}/${statsTyped.total} (${percent}% complete)`);
   }
 
   console.log(`\n🎯 TOP PRIORITY ASSETS TO CREATE`);

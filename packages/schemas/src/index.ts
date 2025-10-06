@@ -4,11 +4,11 @@
  * All entity type schemas exported for validation and type generation
  */
 
-import materialSchema from './material.schema.json' assert { type: 'json' };
-import locationSchema from './location.schema.json' assert { type: 'json' };
-import characterSchema from './character.schema.json' assert { type: 'json' };
-import professionSchema from './profession.schema.json' assert { type: 'json' };
-import relationshipSchema from './relationship.schema.json' assert { type: 'json' };
+import materialSchema from './material.schema.json' with { type: 'json' };
+import locationSchema from './location.schema.json' with { type: 'json' };
+import characterSchema from './character.schema.json' with { type: 'json' };
+import professionSchema from './profession.schema.json' with { type: 'json' };
+import relationshipSchema from './relationship.schema.json' with { type: 'json' };
 
 export const schemas = {
   material: materialSchema,

@@ -12,7 +12,7 @@
  * - Staleness (entities not touched in 30+ days)
  */
 
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { glob } from 'glob';
@@ -20,7 +20,7 @@ import { execSync } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const ROOT_DIR = join(__dirname, '..');
+const ROOT_DIR = join(__dirname, '../../..');
 
 /**
  * Load all entities
@@ -72,7 +72,7 @@ function getGitStats() {
       totalCommits,
       commitsThisWeek: parseInt(commitsThisWeek),
       contributors,
-      daysActive: Math.ceil((new Date() - new Date(firstCommit)) / (1000 * 60 * 60 * 24))
+      daysActive: Math.ceil((new Date().getTime() - new Date(firstCommit).getTime()) / (1000 * 60 * 60 * 24))
     };
   } catch (error) {
     console.error('Error getting git stats:', error.message);
@@ -129,7 +129,7 @@ function calculateEntityStats(entities) {
         stats.staleEntities.push({
           id: entityId,
           lastModified: entity.lastModified,
-          daysAgo: Math.ceil((new Date() - lastMod) / (1000 * 60 * 60 * 24))
+          daysAgo: Math.ceil((new Date().getTime() - lastMod.getTime()) / (1000 * 60 * 60 * 24))
         });
       }
     }
@@ -197,12 +197,12 @@ function generateReport(entities, gitStats, entityStats, velocity) {
   console.log(`Draft: ${entityStats.draft}`);
 
   console.log('\n📁 ENTITIES BY TYPE');
-  for (const [type, count] of Object.entries(entityStats.byType).sort((a, b) => b[1] - a[1])) {
+  for (const [type, count] of Object.entries(entityStats.byType).sort((a: any, b: any) => b[1] - a[1])) {
     console.log(`  ${type}: ${count}`);
   }
 
   console.log('\n📝 ENTITIES BY STATUS');
-  for (const [status, count] of Object.entries(entityStats.byStatus).sort((a, b) => b[1] - a[1])) {
+  for (const [status, count] of Object.entries(entityStats.byStatus).sort((a: any, b: any) => b[1] - a[1])) {
     console.log(`  ${status}: ${count}`);
   }
 
