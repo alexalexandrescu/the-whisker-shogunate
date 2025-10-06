@@ -11,7 +11,8 @@
     "build-relationships": "node scripts/build-relationships.js",
     "serve-wiki": "node scripts/serve-wiki.js",
     "check-assets": "node scripts/check-assets.js",
-    "test": "node scripts/test-all.js"
+    "test": "node scripts/test-all.js",
+    "mcp": "node mcp-server/index.js"
   },
   "dependencies": {
     "ajv": "^8.12.0",

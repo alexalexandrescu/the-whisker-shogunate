@@ -650,6 +650,54 @@ The knowledge base ensures:
 
 ---
 
+## 🔌 MCP Server Integration
+
+### Overview
+
+The system includes a **Model Context Protocol (MCP) server** that provides programmatic access to the knowledge base for AI assistants like Claude.
+
+### Available MCP Tools
+
+1. **`whisker_lore_search`** - Search entities by name, type, tags
+2. **`whisker_get_entity`** - Retrieve complete entity data with relationships
+3. **`whisker_dependency_tree`** - Build dependency visualization
+4. **`whisker_create_entity`** - Create and validate new entities
+5. **`whisker_get_assets`** - Query visual assets for entities
+6. **`whisker_validate`** - Check system consistency
+
+### Quick Start
+
+```bash
+# Search for materials
+npm run mcp whisker_lore_search '{"type": "material"}'
+
+# Get entity details
+npm run mcp whisker_get_entity '{"entityId": "material_wood_hinoki"}'
+
+# Validate system
+npm run mcp whisker_validate '{}'
+```
+
+### Claude Desktop Integration
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "whisker-shogunate": {
+      "command": "node",
+      "args": ["/Users/alex/Projects/the-whisker-shogunate/mcp-server/index.js"],
+      "env": {}
+    }
+  }
+}
+```
+
+**Full MCP documentation**: See [mcp-server/README.md](mcp-server/README.md)
+
+---
+
 ## 📄 License
 
 UNLICENSED - Private world-building project
