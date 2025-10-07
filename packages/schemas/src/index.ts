@@ -9,6 +9,11 @@ import locationSchema from './location.schema.json' with { type: 'json' };
 import characterSchema from './character.schema.json' with { type: 'json' };
 import professionSchema from './profession.schema.json' with { type: 'json' };
 import relationshipSchema from './relationship.schema.json' with { type: 'json' };
+import cultureSchema from './culture.schema.json' with { type: 'json' };
+import factionSchema from './faction.schema.json' with { type: 'json' };
+import foodSchema from './food.schema.json' with { type: 'json' };
+import eventSchema from './event.schema.json' with { type: 'json' };
+import conceptSchema from './concept.schema.json' with { type: 'json' };
 
 export const schemas = {
   material: materialSchema,
@@ -16,6 +21,11 @@ export const schemas = {
   character: characterSchema,
   profession: professionSchema,
   relationship: relationshipSchema,
+  culture: cultureSchema,
+  faction: factionSchema,
+  food: foodSchema,
+  event: eventSchema,
+  concept: conceptSchema,
 } as const;
 
 export {
@@ -24,6 +34,11 @@ export {
   characterSchema,
   professionSchema,
   relationshipSchema,
+  cultureSchema,
+  factionSchema,
+  foodSchema,
+  eventSchema,
+  conceptSchema,
 };
 
 export type EntityType = keyof typeof schemas;

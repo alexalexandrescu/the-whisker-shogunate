@@ -1,0 +1,19 @@
+{
+  "id": "profession_ry-ri-nin",
+  "type": "profession",
+  "name": "Ryōri-nin",
+  "nameJapanese": "Ryōri-nin",
+  "pronunciation": "RYOH-ree-neen",
+  "description": "Chef",
+  "tags": [
+    "profession",
+    "culinary"
+  ],
+  "status": "in-progress",
+  "completionPercentage": 50,
+  "lastModified": "2025-10-07T13:10:53.066Z",
+  "contributors": [
+    "glossary-migration"
+  ],
+  "notes": "Migrated from GLOSSARY.md"
+}
