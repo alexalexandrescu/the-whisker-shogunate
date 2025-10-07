@@ -6,9 +6,13 @@
   "pronunciation": "CHOH-koh-koo-kah",
   "description": "Sculptor",
   "category": "artisan",
+  "relatedMaterials": ["material_metal_brass", "material_wood_hinoki"],
+  "relatedFactions": ["faction_artisan-union"],
   "tags": [
     "profession",
-    "art"
+    "art",
+    "sculpture",
+    "decorative"
   ],
   "status": "in-progress",
   "completionPercentage": 50,

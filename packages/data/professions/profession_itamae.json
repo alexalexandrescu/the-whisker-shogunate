@@ -5,9 +5,15 @@
   "nameJapanese": "Itamae",
   "pronunciation": "ee-tah-MAH-eh",
   "description": "Sushi chef",
+  "category": "culinary",
+  "relatedFoods": ["food_miso", "food_dashi"],
+  "relatedLocations": ["location_minato-kassei", "location_higashi-hama"],
+  "relatedFactions": ["faction_artisan-union"],
   "tags": [
     "profession",
-    "culinary"
+    "culinary",
+    "seafood",
+    "specialty"
   ],
   "status": "in-progress",
   "completionPercentage": 50,

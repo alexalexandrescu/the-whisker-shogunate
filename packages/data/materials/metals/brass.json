@@ -11,10 +11,14 @@
     "appearance": "Bright gold when polished, browns when aged",
     "workability": "moderate"
   },
+  "relatedProfessions": ["profession_chkoku-ka"],
+  "relatedLocations": ["location_yama-takumi"],
+  "relatedFactions": ["faction_engineer-guild", "faction_artisan-union"],
   "tags": [
     "construction",
     "metal",
-    "whisker-punk"
+    "whisker-punk",
+    "decorative"
   ],
   "status": "in-progress",
   "completionPercentage": 60,

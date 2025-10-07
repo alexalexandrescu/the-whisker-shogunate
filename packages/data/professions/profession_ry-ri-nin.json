@@ -5,9 +5,13 @@
   "nameJapanese": "Ryōri-nin",
   "pronunciation": "RYOH-ree-neen",
   "description": "Chef",
+  "category": "culinary",
+  "relatedFoods": ["food_miso", "food_dashi", "food_sake"],
+  "relatedFactions": ["faction_artisan-union"],
   "tags": [
     "profession",
-    "culinary"
+    "culinary",
+    "cooking"
   ],
   "status": "in-progress",
   "completionPercentage": 50,

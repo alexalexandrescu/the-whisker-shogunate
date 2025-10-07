@@ -5,9 +5,14 @@
   "nameJapanese": "",
   "pronunciation": "DIGH-koo",
   "description": "Carpenter",
-  "category": "general",
+  "category": "artisan",
+  "relatedMaterials": ["material_wood_hinoki"],
+  "relatedLocations": ["location_kawa-no-kuni", "location_yama-takumi"],
+  "relatedFactions": ["faction_artisan-union"],
   "tags": [
-    "profession"
+    "profession",
+    "construction",
+    "woodworking"
   ],
   "status": "in-progress",
   "completionPercentage": 50,

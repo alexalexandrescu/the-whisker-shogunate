@@ -5,9 +5,13 @@
   "nameJapanese": "Miso",
   "pronunciation": "MEE-soh",
   "description": "Fermented soy paste",
+  "category": "ingredient",
+  "relatedProfessions": ["profession_ry-ri-nin", "profession_itamae"],
+  "usedIn": ["food_miso-soup", "food_ramen"],
   "tags": [
     "food",
-    "seasoning"
+    "seasoning",
+    "fermented"
   ],
   "status": "in-progress",
   "completionPercentage": 50,

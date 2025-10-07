@@ -5,9 +5,13 @@
   "nameJapanese": "Dashi",
   "pronunciation": "DAH-shee",
   "description": "Bonito and kelp stock, foundation of cuisine",
+  "category": "ingredient",
+  "relatedProfessions": ["profession_ry-ri-nin", "profession_itamae"],
   "tags": [
     "food",
-    "cooking"
+    "cooking",
+    "stock",
+    "foundational"
   ],
   "status": "in-progress",
   "completionPercentage": 50,

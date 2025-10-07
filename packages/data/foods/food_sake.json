@@ -5,9 +5,13 @@
   "nameJapanese": "Sake",
   "pronunciation": "SAH-keh",
   "description": "Rice wine (low alcohol 3-5% in this world)",
+  "category": "beverage",
+  "relatedProfessions": ["profession_ry-ri-nin"],
+  "relatedLocations": ["location_kawa-no-kuni"],
   "tags": [
     "beverage",
-    "alcohol"
+    "alcohol",
+    "rice-based"
   ],
   "status": "in-progress",
   "completionPercentage": 50,
