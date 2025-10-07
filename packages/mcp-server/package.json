@@ -14,8 +14,9 @@
     "start": "node ./bin/mcp.js"
   },
   "dependencies": {
-    "@whisker/schemas": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.19.1",
     "@whisker/data": "workspace:*",
+    "@whisker/schemas": "workspace:*",
     "glob": "^10.3.10"
   },
   "devDependencies": {
