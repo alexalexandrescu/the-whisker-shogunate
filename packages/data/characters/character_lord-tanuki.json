@@ -11,6 +11,7 @@
   "residence": "location_kawa-no-kuni",
   "role": "Provincial ruler, agricultural heartland administrator",
   "personality": "Traditional, conservative, values community and hard work",
+  "affiliations": ["faction_farmer-collective"],
   "tags": [
     "npc",
     "major-character",

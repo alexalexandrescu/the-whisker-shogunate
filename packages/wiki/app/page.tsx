@@ -72,7 +72,7 @@ export default async function Home() {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Quick Links</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <a
               href="/browse"
               className="bg-blue-600 hover:bg-blue-700 text-white p-6 rounded-lg transition-colors"
@@ -80,6 +80,16 @@ export default async function Home() {
               <h3 className="text-xl font-semibold mb-2">Browse Entities</h3>
               <p className="text-blue-100">
                 Explore all {stats.total} entities in the knowledge base
+              </p>
+            </a>
+
+            <a
+              href="/graph"
+              className="bg-green-600 hover:bg-green-700 text-white p-6 rounded-lg transition-colors"
+            >
+              <h3 className="text-xl font-semibold mb-2">Relationship Graph</h3>
+              <p className="text-green-100">
+                Interactive visualization of entity connections
               </p>
             </a>
 

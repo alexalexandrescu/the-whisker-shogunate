@@ -11,6 +11,7 @@
   "residence": "location_minato-kassei",
   "role": "Provincial ruler, trade capital administrator",
   "personality": "Shrewd, politically savvy, business-minded, sophisticated",
+  "affiliations": ["faction_akindo-kumiai"],
   "tags": [
     "npc",
     "major-character",

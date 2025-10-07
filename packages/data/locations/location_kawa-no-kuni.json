@@ -10,7 +10,7 @@
   "geography": "Vast river networks, fertile plains, gentle hills",
   "economy": "Farming (rice, vegetables), tea plantations, traditional crafts",
   "culture": "Most traditional, values hard work and community, suspicious of rapid change. Slow, polite speech patterns.",
-  "daimyo": "Lord Tanuki - tabby, native-born, traditional",
+  "daimyo": "character_lord-tanuki",
   "keyLocations": [
     "The Thousand Bridges - Ancient stone bridges crossing the rivers",
     "Tea Master's Valley - Premium tea growing region",

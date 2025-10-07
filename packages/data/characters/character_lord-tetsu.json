@@ -11,6 +11,7 @@
   "residence": "location_yama-takumi",
   "role": "Provincial ruler, industrial and engineering hub administrator",
   "personality": "Progressive, innovative, meritocratic, direct",
+  "affiliations": ["faction_engineer-guild"],
   "tags": [
     "npc",
     "major-character",

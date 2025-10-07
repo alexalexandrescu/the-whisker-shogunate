@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: '/the-whisker-shogunate',
+  basePath: process.env.NODE_ENV === 'production' ? '/the-whisker-shogunate' : '',
   images: {
     unoptimized: true,
   },
