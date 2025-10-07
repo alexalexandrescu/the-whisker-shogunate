@@ -68,9 +68,9 @@ tmp/
 temp/
 *.tmp
 
-# Lock files (keep package-lock.json, ignore others)
+# Lock files (commit pnpm-lock.yaml for reproducibility)
 yarn.lock
-pnpm-lock.yaml
+package-lock.json
 
 # OS generated files
 Icon?

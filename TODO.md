@@ -1,7 +1,7 @@
 # The Whisker Shogunate - TODO List
 
 **Last Updated**: 2025-10-07
-**Status**: ~80% Complete - TypeScript conversion done, Wiki pending
+**Status**: ~85% Complete - Cleanup done, Wiki pending
 
 ---
 
@@ -70,6 +70,18 @@ module.exports = {
 ---
 
 ## ✅ Recently Completed
+
+### Cleanup (2025-10-07)
+- [x] Removed 8 outdated documentation files (MIGRATION-*.md, *-COMPLETE.md, WORLD-BUILDING-*.md)
+- [x] Removed old source directories (scripts/, mcp-server/, schemas/)
+- [x] Removed backup files (package.json.old, package-lock.json, .DS_Store)
+- [x] Removed empty packages/graph-generator directory
+- [x] Fixed .gitignore to commit pnpm-lock.yaml for reproducibility
+- [x] Verified all 6 packages build successfully
+
+---
+
+## ✅ Previously Completed
 
 ### Phase 4: TypeScript Conversion (2025-10-07)
 - [x] Convert @whisker/validation to TypeScript
