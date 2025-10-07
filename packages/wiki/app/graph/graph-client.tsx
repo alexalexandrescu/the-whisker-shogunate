@@ -11,6 +11,7 @@ import ReactFlow, {
   MarkerType,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
+import dagre from 'dagre';
 import Link from 'next/link';
 
 interface EntityNode {
@@ -29,6 +30,45 @@ interface GraphClientProps {
   edges: EntityEdge[];
 }
 
+const nodeWidth = 180;
+const nodeHeight = 50;
+
+function getLayoutedElements(nodes: Node[], edges: Edge[]) {
+  const dagreGraph = new dagre.graphlib.Graph();
+  dagreGraph.setDefaultEdgeLabel(() => ({}));
+  dagreGraph.setGraph({
+    rankdir: 'TB', // Top to bottom
+    ranksep: 100, // Vertical spacing between ranks
+    nodesep: 50, // Horizontal spacing between nodes
+    edgesep: 20,
+    marginx: 50,
+    marginy: 50
+  });
+
+  nodes.forEach((node) => {
+    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+  });
+
+  edges.forEach((edge) => {
+    dagreGraph.setEdge(edge.source, edge.target);
+  });
+
+  dagre.layout(dagreGraph);
+
+  const layoutedNodes = nodes.map((node) => {
+    const nodeWithPosition = dagreGraph.node(node.id);
+    return {
+      ...node,
+      position: {
+        x: nodeWithPosition.x - nodeWidth / 2,
+        y: nodeWithPosition.y - nodeHeight / 2,
+      },
+    };
+  });
+
+  return { nodes: layoutedNodes, edges };
+}
+
 export default function GraphClient({ nodes: entityNodes, edges: entityEdges }: GraphClientProps) {
   // Color mapping for different entity types
   const typeColors: Record<string, string> = {
@@ -44,7 +84,7 @@ export default function GraphClient({ nodes: entityNodes, edges: entityEdges }: 
   };
 
   // Convert to ReactFlow format
-  const flowNodes: Node[] = entityNodes.map((node, index) => ({
+  const flowNodes: Node[] = entityNodes.map((node) => ({
     id: node.id,
     type: 'default',
     data: {
@@ -57,10 +97,7 @@ export default function GraphClient({ nodes: entityNodes, edges: entityEdges }: 
         </Link>
       ),
     },
-    position: {
-      x: (index % 10) * 250,
-      y: Math.floor(index / 10) * 150,
-    },
+    position: { x: 0, y: 0 }, // Will be set by dagre
     style: {
       background: typeColors[node.type] || '#6b7280',
       color: 'white',
@@ -68,6 +105,8 @@ export default function GraphClient({ nodes: entityNodes, edges: entityEdges }: 
       borderRadius: '8px',
       padding: '10px',
       fontSize: '12px',
+      width: nodeWidth,
+      height: nodeHeight,
     },
   }));
 
@@ -77,17 +116,20 @@ export default function GraphClient({ nodes: entityNodes, edges: entityEdges }: 
     target: edge.target,
     type: 'smoothstep',
     animated: false,
-    style: { stroke: '#94a3b8', strokeWidth: 1 },
+    style: { stroke: '#94a3b8', strokeWidth: 2 },
     markerEnd: {
       type: MarkerType.ArrowClosed,
-      width: 15,
-      height: 15,
+      width: 20,
+      height: 20,
       color: '#94a3b8',
     },
   }));
 
-  const [nodes, setNodes, onNodesChange] = useNodesState(flowNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(flowEdges);
+  // Apply hierarchical layout
+  const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(flowNodes, flowEdges);
+
+  const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
 
   return (
     <div className="min-h-screen font-sans">

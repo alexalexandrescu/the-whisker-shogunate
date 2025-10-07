@@ -14,6 +14,7 @@
     "@whisker/data": "workspace:*",
     "@whisker/schemas": "workspace:*",
     "@whisker/validation": "workspace:*",
+    "dagre": "^0.8.5",
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
