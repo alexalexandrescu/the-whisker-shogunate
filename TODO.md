@@ -1,62 +1,27 @@
 # The Whisker Shogunate - TODO List
 
 **Last Updated**: 2025-10-07
-**Status**: ~85% Complete - Cleanup done, Wiki pending
+**Status**: ~95% Complete - Wiki initialized, ready for deployment!
 
 ---
 
 ## 🎯 Next Session Tasks
 
-### 1. Initialize Next.js Wiki Package (~3 hours)
+### 1. Enable GitHub Pages & Test Deployment (~15 minutes)
 
 **Priority**: HIGH
-**Status**: Not started
-
-```bash
-cd packages/wiki
-pnpm create next-app@latest . --typescript --tailwind --app --no-src-dir
-```
-
-**Configuration needed** (`next.config.js`):
-```js
-module.exports = {
-  output: 'export',
-  basePath: '/the-whisker-shogunate',
-  images: { unoptimized: true }
-}
-```
-
-**Pages to create**:
-- [ ] `app/page.tsx` - Progress dashboard homepage
-- [ ] `app/browse/page.tsx` - Entity browser with filters
-- [ ] `app/entities/[type]/[id]/page.tsx` - Individual entity detail pages
-- [ ] `app/stats/page.tsx` - Analytics and progress charts
-
-**Components to build**:
-- [ ] `ProgressDashboard.tsx` - Completion metrics, charts, velocity tracking
-- [ ] `EntityCard.tsx` - Preview card for entities
-- [ ] `EntityBrowser.tsx` - Filterable table of all entities
-- [ ] `DependencyGraph.tsx` - D3.js relationship visualization (optional for v1)
-
-**Data integration**:
-- [ ] Import from `@whisker/data` package
-- [ ] Use `@whisker/analytics` for progress metrics
-- [ ] Display validation results from `@whisker/validation`
-
-### 2. Enable GitHub Pages (~5 minutes)
-
-**Priority**: HIGH
-**Status**: Not started
+**Status**: Ready to deploy
 
 **Steps**:
 1. Go to repository Settings → Pages
 2. Set Source to "GitHub Actions"
-3. Push to main branch to trigger deployment
+3. Push to main branch to trigger deployment (already done!)
 4. Verify site at `https://<username>.github.io/the-whisker-shogunate`
 
 **Note**: GitHub Actions workflows already created in `.github/workflows/`
+**Wiki**: Built successfully, 30 static pages generated in `packages/wiki/out/`
 
-### 3. Test Full CI/CD Pipeline (~30 minutes)
+### 2. Test Full CI/CD Pipeline (~30 minutes)
 
 **Priority**: MEDIUM
 **Status**: Not started
@@ -70,6 +35,18 @@ module.exports = {
 ---
 
 ## ✅ Recently Completed
+
+### Wiki Package Initialization (2025-10-07)
+- [x] Initialize Next.js 15.5.4 with TypeScript and Tailwind CSS
+- [x] Configure for static export (output: 'export') for GitHub Pages SPA deployment
+- [x] Set basePath to '/the-whisker-shogunate' for GitHub Pages
+- [x] Create homepage with progress dashboard (entity statistics)
+- [x] Create browse page with searchable entity table
+- [x] Create entity detail pages with dynamic routing
+- [x] Add workspace dependencies (@whisker/data, @whisker/schemas, etc.)
+- [x] Fix entity type field name (type vs entity_type)
+- [x] Successfully build and export 30 static pages
+- [x] Build time: ~1.4s with Turbopack
 
 ### Cleanup (2025-10-07)
 - [x] Removed 8 outdated documentation files (MIGRATION-*.md, *-COMPLETE.md, WORLD-BUILDING-*.md)
@@ -124,7 +101,7 @@ module.exports = {
 | @whisker/analytics | ✅ Built | Yes |
 | @whisker/migration | ✅ Built | Yes |
 | @whisker/mcp-server | ✅ Built | Yes |
-| @whisker/wiki | ⏳ Empty | No - needs Next.js init |
+| @whisker/wiki | ✅ Built | Yes - ready for deployment |
 
 ---
 
