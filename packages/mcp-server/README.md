@@ -1,70 +1,94 @@
 # Whisker Shogunate MCP Server
 
-Model Context Protocol (MCP) server providing programmatic CRUD access to The Whisker Shogunate knowledge base.
+Model Context Protocol server providing CRUD access to The Whisker Shogunate knowledge base.
 
-## Overview
-
-This MCP server acts as the **authoritative API and data management layer** for all world-building entities. The wiki is read-only for visualization; all entity creation, updates, and relationship management should go through this MCP server.
-
-## Features
-
-- **Full CRUD Operations**: Create, Read, Update, Delete entities
-- **Schema Validation**: Automatic validation against JSON schemas
-- **Relationship Management**: Add/remove relationships between entities
-- **Search & Query**: Full-text search, type filtering, tag filtering
-- **Bulk Operations**: Update multiple entities at once
-- **Dependency Trees**: Analyze entity dependencies
-- **Asset Management**: Query visual assets for entities
-- **Consistency Validation**: Check data integrity
-
-## Installation
+## Quick Start
 
 ```bash
-# Build the server
-pnpm build
+# Build & validate
+pnpm build && pnpm validate
 
-# Test CLI interface
-node dist/index.js whisker_list_types '{}'
+# Development (auto-rebuild on changes)
+pnpm watch
+
+# After making changes, restart MCP in Claude Code:
+# Command Palette → "Developer: Reload Window"
 ```
 
-## MCP Tools
+## Status
 
-### whisker_create_entity
-Create a new entity with validation.
+**✅ Connected** - 226 entities across 8 types with 199+ relationships
 
-### whisker_update_entity  
-Update an existing entity (merge or replace).
+## Available Tools
 
-### whisker_delete_entity
-Delete an entity (checks for relationships first).
+### CRUD Operations
+- `whisker_create_entity` - Create with validation
+- `whisker_update_entity` - Update (merge or replace)
+- `whisker_delete_entity` - Delete with safety checks
+- `whisker_get_entity` - Get full entity + relationships
 
-### whisker_add_relationship
-Add a relationship between two entities.
+### Search & Query
+- `whisker_lore_search` - Search by name/type/tags
+- `whisker_list_types` - Summary of all entity types
 
-### whisker_remove_relationship
-Remove a relationship between entities.
+### Relationships
+- `whisker_add_relationship` - Connect entities
+- `whisker_remove_relationship` - Remove connections
 
-### whisker_lore_search
-Search entities by name, type, or tags.
+### Bulk & Analysis
+- `whisker_bulk_update` - Update multiple entities
+- `whisker_validate` - Check data integrity
 
-### whisker_get_entity
-Get complete entity data with relationships.
+## Development
 
-### whisker_list_types
-List all entity types with counts and examples.
+See [DEVELOPMENT.md](./DEVELOPMENT.md) for complete workflow guide.
 
-### whisker_bulk_update
-Update multiple entities at once.
+```bash
+# Watch mode (recommended during development)
+pnpm watch
 
-See the source code for detailed parameter schemas.
+# Run all validation tests
+pnpm validate  # 9 tests, all passing ✓
 
-## Entity Types
-
-226 total entities across 10 types with 199+ relationships.
+# Quick test
+pnpm test
+```
 
 ## Architecture
 
-- **Data Layer**: JSON files in `packages/data/`
-- **Schema Layer**: JSON schemas in `packages/schemas/`
-- **API Layer**: This MCP server (authoritative CRUD)
-- **Visualization Layer**: Next.js wiki (read-only)
+- **MCP Server** = Authoritative CRUD API (this package)
+- **Wiki** = Read-only visualization (packages/wiki)
+- **Schemas** = Validation rules (packages/schemas)
+- **Data** = JSON entities (packages/data)
+
+## Entity Types
+
+1. Material (4) - Woods, metals
+2. Location (33) - Provinces, buildings
+3. Character (6) - NPCs, daimyo
+4. Profession (31) - Jobs, trades
+5. Faction (14) - Guilds, organizations
+6. Culture (9) - Holidays, customs
+7. Food (46) - Dishes, ingredients
+8. Concept (83) - Terminology
+
+## Usage in Claude Code
+
+The server is automatically loaded. Just ask:
+
+> "Use whisker_lore_search to find all food items"
+
+> "Use whisker_create_entity to add a new profession"
+
+> "Use whisker_add_relationship to connect sake to Kawa-no-kuni"
+
+## Validation
+
+All entities are validated against JSON schemas. Required fields:
+- All: `id`, `type`, `name`, `description`, `tags`
+- Food: `foodType`
+- Location: `locationType`
+- Material: `category`, `subcategory`
+- Profession: `category`
+
+Run `pnpm validate` to test all tools.
