@@ -3,7 +3,7 @@
     "whisker-lore": {
       "command": "node",
       "args": [
-        "${workspaceFolder}/packages/mcp-server/dist/index.js"
+        "${workspaceFolder}/packages/mcp-server/dist/server.js"
       ],
       "description": "The Whisker Shogunate knowledge base CRUD API - manages all world-building entities, relationships, and data validation"
     }
