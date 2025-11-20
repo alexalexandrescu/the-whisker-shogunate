@@ -20,7 +20,7 @@
     "@modelcontextprotocol/sdk": "^1.19.1",
     "@whisker/data": "workspace:*",
     "@whisker/schemas": "workspace:*",
-    "glob": "^10.3.10"
+    "glob": "^10.5.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
